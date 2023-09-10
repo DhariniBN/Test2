@@ -3,15 +3,7 @@ Storage:LocalStorage -->
 <html>
 <head>
 <title>Toll Plaza Software</title>
-<style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-        }
-</style>
+<link rel="stylesheet" href="..\css\mainstyle.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
         // Define the fixed prices for each vehicle category
@@ -21,22 +13,14 @@ Storage:LocalStorage -->
             "HMV": 30,
             "Heavy Trucks": 40
         };
-
- 
-
         // Define an array to store the entries of vehicles
         var entries = [];
-
- 
 
         // Define a function to add a new entry of a vehicle
         function addEntry() {
             // Get the values from the input fields
             var vehicle = $("#vehicle").val();
             var category = $("#category").val();
-
- 
-
             // Validate the input values
             if (vehicle == "" || category == "") {
                 alert("Please enter the vehicle number and category");
@@ -47,12 +31,8 @@ Storage:LocalStorage -->
                 return;
             }
 
- 
-
             // Calculate the toll amount based on the category
             var amount = prices[category];
-
- 
 
             // Create an object to store the entry details
             var entry = {
@@ -61,46 +41,27 @@ Storage:LocalStorage -->
                 "amount": amount
             };
 
- 
-
             // Add the entry to the array
             entries.push(entry);
-
- 
-
             // Clear the input fields
             $("#vehicle").val("");
             $("#category").val("");
-
- 
-
             // Display a message to confirm the entry
             alert("Entry added successfully. The toll amount is " + amount);
-
- 
-
             // Update the statistics and search results
             showStatistics();
             showSearchResults();
         }
 
- 
-
         // Define a function to show the statistics of the entries
         function showStatistics() {
             // Create an object to store the total amount and count for each category
             var stats = {};
-
- 
-
             // Loop through the entries and update the stats object
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i];
                 var category = entry.category;
                 var amount = entry.amount;
-
- 
-
                 // If the category is not in the stats object, initialize it with zero values
                 if (!stats.hasOwnProperty(category)) {
                     stats[category] = {
@@ -108,87 +69,52 @@ Storage:LocalStorage -->
                         "count": 0
                     };
                 }
-
- 
-
                 // Increment the total amount and count for the category
                 stats[category].total += amount;
                 stats[category].count++;
             }
 
- 
-
             // Create a variable to store the HTML code for the statistics table
             var html = "<table><tr><th>Category</th><th>Total Amount</th><th>Count</th></tr>";
-
- 
-
             // Loop through the stats object and append a row for each category
             for (var category in stats) {
                 var total = stats[category].total;
                 var count = stats[category].count;
-
- 
-
                 html += "<tr><td>" + category + "</td><td>" + total + "</td><td>" + count + "</td></tr>";
             }
-
- 
-
             // Close the table tag
             html += "</table>";
-
- 
-
             // Set the HTML code of the statistics div element
             $("#statistics").html(html);
         }
-
- 
-
         // Define a function to show the search results of the entries based on the filter criteria
         function showSearchResults() {
             // Get the values from the filter fields
             var filterCategory = $("#filterCategory").val();
             var filterVehicle = $("#filterVehicle").val();
-
- 
-
             // Create a variable to store the HTML code for the search results table
             var html = "<table><tr><th>Vehicle</th><th>Category</th><th>Amount</th></tr>";
-
- 
-
             // Loop through the entries and append a row for each matching entry
             for (var i = 0; i < entries.length; i++) {
                 var entry = entries[i];
                 var vehicle = entry.vehicle;
                 var category = entry.category;
                 var amount = entry.amount;
-
- 
-
                 // Check if the entry matches the filter criteria
                 if ((filterCategory == "" || filterCategory == category) && (filterVehicle == "" || filterVehicle == vehicle)) {
                     html += "<tr><td>" + vehicle + "</td><td>" + category + "</td><td>" + amount + "</td></tr>";
                 }
 
             }
-
- 
-
              // Close the table tag
              html += "</table>";
-
- 
-
              // Set the HTML code of the search results div element
              $("#searchResults").html(html);
         }
-    </script>
+</script>
 </head>
 <body>
-<h1>Toll Plaza Software</h1>
+<h1>Navayuga infrastructure</h1>
 <h2>Add Entry</h2>
 <p>Enter the vehicle number and category and click on the Add button to generate the toll amount.</p>
 <p>Vehicle: <input type="text" id="vehicle"></p>
@@ -199,7 +125,7 @@ Storage:LocalStorage -->
 <option value="HMV">HMV</option>
 <option value="Heavy Trucks">Heavy Trucks</option>
 </select></p>
-<p><button onclick="addEntry()">Add</button></p> -->
+<p><button onclick="addEntry()">Add</button></p>
 <h2>Statistics</h2>
 <p>View the total amount and count of entries for each category.</p>
 <div id="statistics"></div>
